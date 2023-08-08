@@ -44,5 +44,9 @@ process.on("SIGINT", shutdown);
 process.on("SIGTERM", shutdown);
 
 server.listen(port, async () => {
-  console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
+  if (process.env.NODE_ENV === "development") {
+    console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
+  } else {
+    console.log(`⚡️[server]: Server is running at ${process.env.CYCLIC_URL}`);
+  }
 });
