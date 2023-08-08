@@ -15,11 +15,15 @@ router.use("/", styleRouter.default);
 router.use("/", articleRouter.default);
 
 router.get("/get-all", async (req: Request, res: Response) => {
-  const sizes = await prisma.size.findMany();
-  const yarns = await prisma.yarn.findMany();
-  const works = await prisma.work.findMany();
-  const styles = await prisma.style.findMany();
-  res.json({ sizes, yarns, works, styles });
+  try {
+    const sizes = await prisma.size.findMany();
+    const yarns = await prisma.yarn.findMany();
+    const works = await prisma.work.findMany();
+    const styles = await prisma.style.findMany();
+    res.json({ sizes, yarns, works, styles });
+  } catch (error) {
+    res.send(error).status(500);
+  }
 });
 
 export default router;

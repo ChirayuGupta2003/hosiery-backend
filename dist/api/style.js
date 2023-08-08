@@ -16,47 +16,72 @@ const express_1 = __importDefault(require("express"));
 const db_1 = require("../db");
 const router = express_1.default.Router();
 router.get("/styles", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const allStyles = yield db_1.prisma.style.findMany();
-    res.json(allStyles);
+    try {
+        const allStyles = yield db_1.prisma.style.findMany();
+        res.json(allStyles);
+    }
+    catch (error) {
+        res.send(error).status(500);
+    }
 }));
 router.get("/styles/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { id } = req.params;
-    const style = yield db_1.prisma.style.findUnique({
-        where: {
-            id: id,
-        },
-    });
-    res.json(style);
+    try {
+        const { id } = req.params;
+        const style = yield db_1.prisma.style.findUnique({
+            where: {
+                id: id,
+            },
+        });
+        res.json(style);
+    }
+    catch (error) {
+        res.send(error).status(500);
+    }
 }));
 router.post("/styles", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { name } = req.body;
-    const style = yield db_1.prisma.style.create({
-        data: {
-            name: name,
-        },
-    });
-    res.json(style);
+    try {
+        const { name } = req.body;
+        const style = yield db_1.prisma.style.create({
+            data: {
+                name: name,
+            },
+        });
+        res.json(style);
+    }
+    catch (error) {
+        res.send(error).status(500);
+    }
 }));
 router.put("/styles/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { id } = req.params;
-    const { name } = req.body;
-    const style = yield db_1.prisma.style.update({
-        where: {
-            id: id,
-        },
-        data: {
-            name: name,
-        },
-    });
-    res.json(style);
+    try {
+        const { id } = req.params;
+        const { name } = req.body;
+        const style = yield db_1.prisma.style.update({
+            where: {
+                id: id,
+            },
+            data: {
+                name: name,
+            },
+        });
+        res.json(style);
+    }
+    catch (error) {
+        res.send(error).status(500);
+    }
 }));
 router.delete("/styles/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { id } = req.params;
-    const style = yield db_1.prisma.style.delete({
-        where: {
-            id: id,
-        },
-    });
-    res.json(style);
+    try {
+        const { id } = req.params;
+        const style = yield db_1.prisma.style.delete({
+            where: {
+                id: id,
+            },
+        });
+        res.json(style);
+    }
+    catch (error) {
+        res.send(error).status(500);
+    }
 }));
 exports.default = router;

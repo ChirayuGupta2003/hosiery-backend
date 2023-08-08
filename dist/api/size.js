@@ -16,39 +16,59 @@ const express_1 = __importDefault(require("express"));
 const db_1 = require("../db");
 const router = express_1.default.Router();
 router.get("/sizes", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const allSizes = yield db_1.prisma.size.findMany();
-    res.json(allSizes);
+    try {
+        const allSizes = yield db_1.prisma.size.findMany();
+        res.json(allSizes);
+    }
+    catch (error) {
+        res.send(error).status(500);
+    }
 }));
 router.get("/sizes/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { id } = req.params;
-    const size = yield db_1.prisma.size.findUnique({
-        where: {
-            id: id,
-        },
-    });
-    res.json(size);
+    try {
+        const { id } = req.params;
+        const size = yield db_1.prisma.size.findUnique({
+            where: {
+                id: id,
+            },
+        });
+        res.json(size);
+    }
+    catch (error) {
+        res.send(error).status(500);
+    }
 }));
 router.post("/sizes", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { name } = req.body;
-    const size = yield db_1.prisma.size.create({
-        data: {
-            name: name,
-        },
-    });
-    res.json(size);
+    try {
+        const { name } = req.body;
+        const size = yield db_1.prisma.size.create({
+            data: {
+                name: name,
+            },
+        });
+        res.json(size);
+    }
+    catch (error) {
+        res.send(error).status(500);
+    }
 }));
 router.put("/sizes/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { id } = req.params;
-    const { name } = req.body;
-    const size = yield db_1.prisma.size.update({
-        where: {
-            id: id,
-        },
-        data: {
-            name: name,
-        },
-    });
-    res.json(size);
+    try {
+        const { id } = req.params;
+        const { name } = req.body;
+        const size = yield db_1.prisma.size.update({
+            where: {
+                id: id,
+            },
+            data: {
+                name: name,
+            },
+        });
+        res.json(size);
+    }
+    catch (error) {
+        res.send(error).status(500);
+    }
 }));
 router.delete("/sizes/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {

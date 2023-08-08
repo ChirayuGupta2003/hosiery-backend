@@ -50,13 +50,18 @@ router.put("/yarns/:id", (req, res) => __awaiter(void 0, void 0, void 0, functio
     });
     res.json(yarn);
 }));
-router.delete("/yarn/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { id } = req.params;
-    const yarn = yield db_1.prisma.yarn.delete({
-        where: {
-            id: id,
-        },
-    });
-    res.json(yarn);
+router.delete("/yarns/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { id } = req.params;
+        const yarn = yield db_1.prisma.yarn.delete({
+            where: {
+                id: id,
+            },
+        });
+        res.json(yarn);
+    }
+    catch (error) {
+        res.status(400).json(error);
+    }
 }));
 exports.default = router;

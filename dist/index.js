@@ -30,6 +30,9 @@ app.use(express_1.default.urlencoded({ extended: true }));
 const server = http_1.default.createServer(app);
 const port = process.env.PORT;
 app.use("/api", api_1.default);
+app.get("/", (req, res) => {
+    res.send("Hello World!");
+});
 app.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(500).send("Something went wrong!");

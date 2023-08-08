@@ -49,10 +49,15 @@ router.use("/", workRouter.default);
 router.use("/", styleRouter.default);
 router.use("/", articleRouter.default);
 router.get("/get-all", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const sizes = yield db_1.prisma.size.findMany();
-    const yarns = yield db_1.prisma.yarn.findMany();
-    const works = yield db_1.prisma.work.findMany();
-    const styles = yield db_1.prisma.style.findMany();
-    res.json({ sizes, yarns, works, styles });
+    try {
+        const sizes = yield db_1.prisma.size.findMany();
+        const yarns = yield db_1.prisma.yarn.findMany();
+        const works = yield db_1.prisma.work.findMany();
+        const styles = yield db_1.prisma.style.findMany();
+        res.json({ sizes, yarns, works, styles });
+    }
+    catch (error) {
+        res.send(error).status(500);
+    }
 }));
 exports.default = router;

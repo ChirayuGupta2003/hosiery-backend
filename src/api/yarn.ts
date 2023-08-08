@@ -42,14 +42,18 @@ router.put("/yarns/:id", async (req: Request, res: Response) => {
   res.json(yarn);
 });
 
-router.delete("/yarn/:id", async (req: Request, res: Response) => {
-  const { id } = req.params;
-  const yarn = await prisma.yarn.delete({
-    where: {
-      id: id,
-    },
-  });
-  res.json(yarn);
+router.delete("/yarns/:id", async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const yarn = await prisma.yarn.delete({
+      where: {
+        id: id,
+      },
+    });
+    res.json(yarn);
+  } catch (error) {
+    res.status(400).json(error);
+  }
 });
 
 export default router;

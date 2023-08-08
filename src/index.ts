@@ -27,6 +27,10 @@ const port = process.env.PORT;
 
 app.use("/api", router);
 
+app.get("/", (req: Request, res: Response) => {
+  res.send("Hello World!");
+});
+
 app.use((err: Error, req: Request, res: Response, next: NextFunction): void => {
   console.error(err.stack);
   res.status(500).send("Something went wrong!");

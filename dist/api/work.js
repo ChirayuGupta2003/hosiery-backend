@@ -16,47 +16,72 @@ const express_1 = __importDefault(require("express"));
 const db_1 = require("../db");
 const router = express_1.default.Router();
 router.get("/works", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const allWorks = yield db_1.prisma.work.findMany();
-    res.json(allWorks);
+    try {
+        const allWorks = yield db_1.prisma.work.findMany();
+        res.json(allWorks);
+    }
+    catch (error) {
+        res.send(error).status(500);
+    }
 }));
 router.get("/works/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { id } = req.params;
-    const work = yield db_1.prisma.work.findUnique({
-        where: {
-            id: id,
-        },
-    });
-    res.json(work);
+    try {
+        const { id } = req.params;
+        const work = yield db_1.prisma.work.findUnique({
+            where: {
+                id: id,
+            },
+        });
+        res.json(work);
+    }
+    catch (error) {
+        res.send(error).status(500);
+    }
 }));
 router.post("/works", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { name } = req.body;
-    const work = yield db_1.prisma.work.create({
-        data: {
-            name: name,
-        },
-    });
-    res.json(work);
+    try {
+        const { name } = req.body;
+        const work = yield db_1.prisma.work.create({
+            data: {
+                name: name,
+            },
+        });
+        res.json(work);
+    }
+    catch (error) {
+        res.send(error).status(500);
+    }
 }));
 router.put("/works/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { id } = req.params;
-    const { name } = req.body;
-    const work = yield db_1.prisma.work.update({
-        where: {
-            id: id,
-        },
-        data: {
-            name: name,
-        },
-    });
-    res.json(work);
+    try {
+        const { id } = req.params;
+        const { name } = req.body;
+        const work = yield db_1.prisma.work.update({
+            where: {
+                id: id,
+            },
+            data: {
+                name: name,
+            },
+        });
+        res.json(work);
+    }
+    catch (error) {
+        res.send(error).status(500);
+    }
 }));
 router.delete("/works/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { id } = req.params;
-    const work = yield db_1.prisma.work.delete({
-        where: {
-            id: id,
-        },
-    });
-    res.json(work);
+    try {
+        const { id } = req.params;
+        const work = yield db_1.prisma.work.delete({
+            where: {
+                id: id,
+            },
+        });
+        res.json(work);
+    }
+    catch (error) {
+        res.send(error).status(500);
+    }
 }));
 exports.default = router;
