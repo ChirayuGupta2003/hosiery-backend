@@ -34,7 +34,8 @@ router.get(
 
 router.post("/articles", async (req: Request, res: Response) => {
   try {
-    const { yarnId, styleId, workId, sizeId, stock, articleNumber } = req.body;
+    const { yarnId, styleId, workId, sizeId, stock, articleNumber, image } =
+      req.body;
     const article = await prisma.article.create({
       data: {
         yarnId: yarnId,
@@ -43,6 +44,7 @@ router.post("/articles", async (req: Request, res: Response) => {
         sizeId: sizeId,
         stock: stock,
         articleNumber: articleNumber,
+        image: image,
       },
     });
     res.json(article);

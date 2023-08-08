@@ -40,7 +40,7 @@ router.get("/articles/:id", (req, res, next) => __awaiter(void 0, void 0, void 0
 }));
 router.post("/articles", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { yarnId, styleId, workId, sizeId, stock, articleNumber } = req.body;
+        const { yarnId, styleId, workId, sizeId, stock, articleNumber, image } = req.body;
         const article = yield db_1.prisma.article.create({
             data: {
                 yarnId: yarnId,
@@ -49,6 +49,7 @@ router.post("/articles", (req, res) => __awaiter(void 0, void 0, void 0, functio
                 sizeId: sizeId,
                 stock: stock,
                 articleNumber: articleNumber,
+                image: image,
             },
         });
         res.json(article);

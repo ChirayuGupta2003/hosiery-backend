@@ -12,9 +12,9 @@ datasource db {
 
 model Article {
   id            String   @id @default(auto()) @map("_id") @db.ObjectId
-  articleNumber String
+  articleNumber String   @unique
   stock         Int
-  // image         Bytes
+  image         String
   yarn          Yarn     @relation(fields: [yarnId], references: [id])
   Style         Style    @relation(fields: [styleId], references: [id])
   Work          Work     @relation(fields: [workId], references: [id])
