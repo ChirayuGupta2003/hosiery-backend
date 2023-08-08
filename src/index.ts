@@ -11,14 +11,24 @@ dotenv.config();
 const app = express();
 
 app.use(cors());
-app.enable("trust proxy");
+// app.enable("trust proxy");
 // app.use(bodyParser.json());
 // app.use(bodyParser.urlencoded({ extended: true }));
-app.use(
-  morgan(
-    ":remote-addr :method :url :status :res[content-length] - :response-time ms"
-  )
-);
+// app.use(
+//   morgan(
+//     ":remote-addr :method :url :status :res[content-length] - :response-time ms"
+//   )
+// );
+
+app.use((req: Request, res: Response, next: NextFunction) => {
+  console.log(
+    `${req.ip} ${req.method} ${
+      req.url
+    } ${new Date().toLocaleDateString()} ${new Date().toLocaleTimeString()}`
+  );
+  next();
+});
+
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ limit: "50mb" }));
 
