@@ -17,21 +17,14 @@ const dotenv_1 = __importDefault(require("dotenv"));
 const cors_1 = __importDefault(require("cors"));
 const http_1 = __importDefault(require("http"));
 const api_1 = __importDefault(require("./api"));
+const morgan_1 = __importDefault(require("morgan"));
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)());
 // app.enable("trust proxy");
 // app.use(bodyParser.json());
 // app.use(bodyParser.urlencoded({ extended: true }));
-// app.use(
-//   morgan(
-//     ":remote-addr :method :url :status :res[content-length] - :response-time ms"
-//   )
-// );
-app.use((req, res, next) => {
-    console.log(`${req.ip} ${req.method} ${req.url} ${new Date().toLocaleDateString()} ${new Date().toLocaleTimeString()}`);
-    next();
-});
+app.use((0, morgan_1.default)(":remote-addr :method :url :status :res[content-length] - :response-time ms"));
 app.use(express_1.default.json({ limit: "50mb" }));
 app.use(express_1.default.urlencoded({ limit: "50mb" }));
 const server = http_1.default.createServer(app);
