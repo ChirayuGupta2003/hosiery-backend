@@ -1,0 +1,52 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Article {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  articleNumber String
+  stock         Int
+  // image         Bytes
+  yarn          Yarn     @relation(fields: [yarnId], references: [id])
+  Style         Style    @relation(fields: [styleId], references: [id])
+  Work          Work     @relation(fields: [workId], references: [id])
+  Size          Size     @relation(fields: [sizeId], references: [id])
+  yarnId        String   @db.ObjectId
+  styleId       String   @db.ObjectId
+  workId        String   @db.ObjectId
+  sizeId        String   @db.ObjectId
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model Yarn {
+  id      String    @id @default(auto()) @map("_id") @db.ObjectId
+  name    String    @unique
+  Article Article[]
+}
+
+model Style {
+  id      String    @id @default(auto()) @map("_id") @db.ObjectId
+  name    String    @unique
+  Article Article[]
+}
+
+model Work {
+  id      String    @id @default(auto()) @map("_id") @db.ObjectId
+  name    String    @unique
+  Article Article[]
+}
+
+model Size {
+  id      String    @id @default(auto()) @map("_id") @db.ObjectId
+  name    String    @unique
+  Article Article[]
+}
