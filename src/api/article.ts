@@ -36,6 +36,18 @@ router.post("/articles", async (req: Request, res: Response) => {
   try {
     const { yarnId, styleId, workId, sizeId, stock, articleNumber, image } =
       req.body;
+
+    const art = await prisma.article.findFirst({
+      where: { articleNumber: articleNumber },
+    });
+    console.log(art);
+
+    if (art) {
+      return res
+        .send({ message: "Article number already exists", success: false })
+        .status(400);
+    }
+
     const article = await prisma.article.create({
       data: {
         yarnId: yarnId,
@@ -47,7 +59,7 @@ router.post("/articles", async (req: Request, res: Response) => {
         image: image,
       },
     });
-    res.json(article);
+    res.json({ article, success: true });
   } catch (error) {
     res.send(error).status(500);
   }

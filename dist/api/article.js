@@ -41,6 +41,15 @@ router.get("/articles/:id", (req, res, next) => __awaiter(void 0, void 0, void 0
 router.post("/articles", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { yarnId, styleId, workId, sizeId, stock, articleNumber, image } = req.body;
+        const art = yield db_1.prisma.article.findFirst({
+            where: { articleNumber: articleNumber },
+        });
+        console.log(art);
+        if (art) {
+            return res
+                .send({ message: "Article number already exists", success: false })
+                .status(400);
+        }
         const article = yield db_1.prisma.article.create({
             data: {
                 yarnId: yarnId,
@@ -52,7 +61,7 @@ router.post("/articles", (req, res) => __awaiter(void 0, void 0, void 0, functio
                 image: image,
             },
         });
-        res.json(article);
+        res.json({ article, success: true });
     }
     catch (error) {
         res.send(error).status(500);

@@ -42,19 +42,23 @@ const sizeRouter = __importStar(require("./size"));
 const workRouter = __importStar(require("./work"));
 const styleRouter = __importStar(require("./style"));
 const articleRouter = __importStar(require("./article"));
+const colorRouter = __importStar(require("./color"));
 const router = express_1.default.Router();
 router.use("/", yarnRouter.default);
 router.use("/", sizeRouter.default);
 router.use("/", workRouter.default);
 router.use("/", styleRouter.default);
 router.use("/", articleRouter.default);
+router.use("/", colorRouter.default);
 router.get("/get-all", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const sizes = yield db_1.prisma.size.findMany();
         const yarns = yield db_1.prisma.yarn.findMany();
         const works = yield db_1.prisma.work.findMany();
         const styles = yield db_1.prisma.style.findMany();
-        res.json({ sizes, yarns, works, styles });
+        const articles = yield db_1.prisma.article.findMany();
+        const colors = yield db_1.prisma.color.findMany();
+        res.json({ sizes, yarns, works, styles, articles, colors });
     }
     catch (error) {
         res.send(error).status(500);
