@@ -19,7 +19,7 @@ app.use(
     ":remote-addr :method :url :status :res[content-length] - :response-time ms"
   )
 );
-app.use(express.json({ limit: "10mb" }));
+app.use(express.json({ limit: "5mb" }));
 // app.use(express.urlencoded({ limit: "10mb" }));
 
 const server = http.createServer(app);

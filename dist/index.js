@@ -26,7 +26,7 @@ app.use((0, cors_1.default)());
 // app.use(bodyParser.json());
 // app.use(bodyParser.urlencoded({ extended: true }));
 app.use((0, morgan_1.default)(":remote-addr :method :url :status :res[content-length] - :response-time ms"));
-app.use(express_1.default.json({ limit: "10mb" }));
+app.use(express_1.default.json({ limit: "5mb" }));
 // app.use(express.urlencoded({ limit: "10mb" }));
 const server = http_1.default.createServer(app);
 const port = process.env.DEV_PORT;

@@ -7,7 +7,14 @@ router.get(
   "/articles",
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const articles = await prisma.article.findMany();
+      const articles = await prisma.article.findMany({
+        include: {
+          Yarn: true,
+          Style: true,
+          Work: true,
+          Size: true,
+        },
+      });
       res.json(articles);
     } catch (error) {
       res.send(error).status(500);
@@ -40,7 +47,6 @@ router.post("/articles", async (req: Request, res: Response) => {
     const art = await prisma.article.findFirst({
       where: { articleNumber: articleNumber },
     });
-    console.log(art);
 
     if (art) {
       return res
@@ -61,6 +67,7 @@ router.post("/articles", async (req: Request, res: Response) => {
     });
     res.json({ article, success: true });
   } catch (error) {
+    console.log(error);
     res.send(error).status(500);
   }
 });

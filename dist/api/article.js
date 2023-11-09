@@ -44,7 +44,6 @@ router.post("/articles", (req, res) => __awaiter(void 0, void 0, void 0, functio
         const art = yield db_1.prisma.article.findFirst({
             where: { articleNumber: articleNumber },
         });
-        console.log(art);
         if (art) {
             return res
                 .send({ message: "Article number already exists", success: false })
@@ -64,6 +63,7 @@ router.post("/articles", (req, res) => __awaiter(void 0, void 0, void 0, functio
         res.json({ article, success: true });
     }
     catch (error) {
+        console.log(error);
         res.send(error).status(500);
     }
 }));

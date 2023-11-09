@@ -11,21 +11,21 @@ datasource db {
 }
 
 model Article {
-  id            String       @id @default(auto()) @map("_id") @db.ObjectId
-  articleNumber String       @unique
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  articleNumber String   @unique
   stock         Int
   image         String
-  Yarn          Yarn         @relation(fields: [yarnId], references: [id])
-  Style         Style        @relation(fields: [styleId], references: [id])
-  Work          Work         @relation(fields: [workId], references: [id])
-  Size          Size         @relation(fields: [sizeId], references: [id])
-  ColorStock    ColorStock[]
-  yarnId        String       @db.ObjectId
-  styleId       String       @db.ObjectId
-  workId        String       @db.ObjectId
-  sizeId        String       @db.ObjectId
-  createdAt     DateTime     @default(now())
-  updatedAt     DateTime     @updatedAt
+  Yarn          Yarn     @relation(fields: [yarnId], references: [id])
+  Style         Style    @relation(fields: [styleId], references: [id])
+  Work          Work     @relation(fields: [workId], references: [id])
+  Size          Size     @relation(fields: [sizeId], references: [id])
+  // ColorStock    ColorStock[]
+  yarnId        String   @db.ObjectId
+  styleId       String   @db.ObjectId
+  workId        String   @db.ObjectId
+  sizeId        String   @db.ObjectId
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 }
 
 model Yarn {
